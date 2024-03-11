@@ -35,15 +35,15 @@ class FSPagerViewLayout: UICollectionViewLayout {
         self.commonInit()
     }
     
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required public init?(coder: NSCoder) {
+        super.init(coder: coder)
         self.commonInit()
     }
     
     deinit {
-        #if !os(tvOS)
+#if !os(tvOS)
         NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
-        #endif
+#endif
     }
     
     override open func prepare() {
@@ -256,9 +256,9 @@ class FSPagerViewLayout: UICollectionViewLayout {
     // MARK:- Private functions
     
     fileprivate func commonInit() {
-        #if !os(tvOS)
-            NotificationCenter.default.addObserver(self, selector: #selector(didReceiveNotification(notification:)), name: UIDevice.orientationDidChangeNotification, object: nil)
-        #endif
+#if !os(tvOS)
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveNotification(notification:)), name: UIDevice.orientationDidChangeNotification, object: nil)
+#endif
     }
     
     fileprivate func adjustCollectionViewBounds() {

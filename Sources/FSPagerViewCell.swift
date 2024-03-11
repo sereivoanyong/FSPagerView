@@ -12,8 +12,8 @@ open class FSPagerViewCell: UICollectionViewCell {
     
     /// Returns the label used for the main textual content of the pager view cell.
     @objc
-    open var textLabel: UILabel? {
-        if let _ = _textLabel {
+    open var textLabel: UILabel {
+        if let _textLabel {
             return _textLabel
         }
         let view = UIView(frame: .zero)
@@ -34,8 +34,8 @@ open class FSPagerViewCell: UICollectionViewCell {
     
     /// Returns the image view of the pager view cell. Default is nil.
     @objc
-    open var imageView: UIImageView? {
-        if let _ = _imageView {
+    open var imageView: UIImageView {
+        if let _imageView {
             return _imageView
         }
         let imageView = UIImageView(frame: .zero)
@@ -47,7 +47,7 @@ open class FSPagerViewCell: UICollectionViewCell {
     fileprivate weak var _textLabel: UILabel?
     fileprivate weak var _imageView: UIImageView?
     
-    fileprivate let kvoContext = UnsafeMutableRawPointer(bitPattern: 0)
+    nonisolated(unsafe) fileprivate let kvoContext = UnsafeMutableRawPointer(bitPattern: 0)
     fileprivate let selectionColor = UIColor(white: 0.2, alpha: 0.2)
     
     fileprivate weak var _selectedForegroundView: UIView?
@@ -93,8 +93,8 @@ open class FSPagerViewCell: UICollectionViewCell {
         commonInit()
     }
     
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
         commonInit()
     }
     
@@ -142,7 +142,9 @@ open class FSPagerViewCell: UICollectionViewCell {
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if context == kvoContext {
             if keyPath == "font" {
-                self.setNeedsLayout()
+                MainActor.assumeIsolated {
+                    self.setNeedsLayout()
+                }
             }
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)

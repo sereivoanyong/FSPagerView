@@ -10,7 +10,7 @@ import UIKit
 
 open class FSPagerViewLayoutAttributes: UICollectionViewLayoutAttributes {
 
-    open var position: CGFloat = 0
+    nonisolated(unsafe) open var position: CGFloat = 0
     
     open override func isEqual(_ object: Any?) -> Bool {
         guard let object = object as? FSPagerViewLayoutAttributes else {

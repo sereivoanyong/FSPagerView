@@ -268,8 +268,8 @@ open class FSPagerView: UIView,UICollectionViewDataSource,UICollectionViewDelega
         self.commonInit()
     }
     
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
         self.commonInit()
     }
     
@@ -289,7 +289,7 @@ open class FSPagerView: UIView,UICollectionViewDataSource,UICollectionViewDelega
         }
     }
     
-    #if TARGET_INTERFACE_BUILDER
+#if TARGET_INTERFACE_BUILDER
     
     open override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
@@ -304,12 +304,7 @@ open class FSPagerView: UIView,UICollectionViewDataSource,UICollectionViewDelega
         self.contentView.addSubview(label)
     }
     
-    #endif
-
-    deinit {
-        self.collectionView.dataSource = nil
-        self.collectionView.delegate = nil
-    }
+#endif
 
     // MARK: - UICollectionViewDataSource
     
@@ -468,10 +463,10 @@ open class FSPagerView: UIView,UICollectionViewDataSource,UICollectionViewDelega
     open func dequeueReusableCell(withReuseIdentifier identifier: String, at index: Int) -> FSPagerViewCell {
         let indexPath = IndexPath(item: index, section: self.dequeingSection)
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
-        guard cell.isKind(of: FSPagerViewCell.self) else {
+        guard let cell = cell as? FSPagerViewCell else {
             fatalError("Cell class must be subclass of FSPagerViewCell")
         }
-        return cell as! FSPagerViewCell
+        return cell
     }
     
     /// Reloads all of the data for the collection view.

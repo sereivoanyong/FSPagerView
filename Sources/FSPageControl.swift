@@ -84,8 +84,8 @@ open class FSPageControl: UIControl {
         commonInit()
     }
     
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
         commonInit()
     }
     
@@ -302,7 +302,7 @@ open class FSPageControl: UIControl {
     
 }
 
-extension UIControl.State: Hashable {
+extension UIControl.State: @retroactive Hashable {
     public var hashValue: Int {
         return Int((6777*self.rawValue+3777)%UInt(UInt16.max))
     }
