@@ -93,8 +93,8 @@ open class FSPagerViewCell: UICollectionViewCell {
         commonInit()
     }
     
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
         commonInit()
     }
     

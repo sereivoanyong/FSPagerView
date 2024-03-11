@@ -268,8 +268,8 @@ open class FSPagerView: UIView,UICollectionViewDataSource,UICollectionViewDelega
         self.commonInit()
     }
     
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
         self.commonInit()
     }
     
@@ -289,7 +289,7 @@ open class FSPagerView: UIView,UICollectionViewDataSource,UICollectionViewDelega
         }
     }
     
-    #if TARGET_INTERFACE_BUILDER
+#if TARGET_INTERFACE_BUILDER
     
     open override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
@@ -304,7 +304,7 @@ open class FSPagerView: UIView,UICollectionViewDataSource,UICollectionViewDelega
         self.contentView.addSubview(label)
     }
     
-    #endif
+#endif
 
     deinit {
         self.collectionView.dataSource = nil
