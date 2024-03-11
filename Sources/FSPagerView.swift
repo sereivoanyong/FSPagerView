@@ -468,10 +468,10 @@ open class FSPagerView: UIView,UICollectionViewDataSource,UICollectionViewDelega
     open func dequeueReusableCell(withReuseIdentifier identifier: String, at index: Int) -> FSPagerViewCell {
         let indexPath = IndexPath(item: index, section: self.dequeingSection)
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
-        guard cell.isKind(of: FSPagerViewCell.self) else {
+        guard let cell = cell as? FSPagerViewCell else {
             fatalError("Cell class must be subclass of FSPagerViewCell")
         }
-        return cell as! FSPagerViewCell
+        return cell
     }
     
     /// Reloads all of the data for the collection view.

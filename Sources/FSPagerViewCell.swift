@@ -12,8 +12,8 @@ open class FSPagerViewCell: UICollectionViewCell {
     
     /// Returns the label used for the main textual content of the pager view cell.
     @objc
-    open var textLabel: UILabel? {
-        if let _ = _textLabel {
+    open var textLabel: UILabel {
+        if let _textLabel {
             return _textLabel
         }
         let view = UIView(frame: .zero)
@@ -34,11 +34,13 @@ open class FSPagerViewCell: UICollectionViewCell {
     
     /// Returns the image view of the pager view cell. Default is nil.
     @objc
-    open var imageView: UIImageView? {
-        if let _ = _imageView {
+    open var imageView: UIImageView {
+        if let _imageView {
             return _imageView
         }
         let imageView = UIImageView(frame: .zero)
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
         self.contentView.addSubview(imageView)
         _imageView = imageView
         return imageView
