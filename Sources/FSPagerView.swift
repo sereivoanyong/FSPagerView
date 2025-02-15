@@ -204,8 +204,8 @@ open class FSPagerView: UIView,UICollectionViewDataSource,UICollectionViewDelega
     @objc
     open var scrollOffset: CGFloat {
         let contentOffset = max(self.collectionView.contentOffset.x, self.collectionView.contentOffset.y)
-        let scrollOffset = Double(contentOffset/self.collectionViewLayout.itemSpacing)
-        return fmod(CGFloat(scrollOffset), CGFloat(self.numberOfItems))
+        let scrollOffset = contentOffset/self.collectionViewLayout.itemSpacing
+        return fmod(scrollOffset, CGFloat(self.numberOfItems))
     }
     
     /// The underlying gesture recognizer for pan gestures.
@@ -388,7 +388,7 @@ open class FSPagerView: UIView,UICollectionViewDataSource,UICollectionViewDelega
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if !self.isPossiblyRotating && self.numberOfItems > 0 {
             // In case someone is using KVO
-            let currentIndex = lround(Double(self.scrollOffset)) % self.numberOfItems
+            let currentIndex = lround(scrollOffset) % numberOfItems
             if (currentIndex != self.currentIndex) {
                 self.currentIndex = currentIndex
             }
@@ -411,7 +411,7 @@ open class FSPagerView: UIView,UICollectionViewDataSource,UICollectionViewDelega
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if let function = self.delegate?.pagerViewWillEndDragging(_:targetIndex:) {
             let contentOffset = self.scrollDirection == .horizontal ? targetContentOffset.pointee.x : targetContentOffset.pointee.y
-            let targetItem = lround(Double(contentOffset/self.collectionViewLayout.itemSpacing))
+            let targetItem = lround(contentOffset/self.collectionViewLayout.itemSpacing)
             function(self, targetItem % self.numberOfItems)
         }
         if self.automaticSlidingInterval > 0 {

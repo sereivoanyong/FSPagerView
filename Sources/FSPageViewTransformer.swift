@@ -124,7 +124,7 @@ open class FSPagerViewTransformer: NSObject {
                 zIndex = 1
             case 0 ..< 1: // (0,1)
                 // Fade the page out.
-                alpha = CGFloat(1.0) - position
+                alpha = 1.0 - position
                 // Counteract the default slide transition
                 switch scrollDirection {
                 case .horizontal:
@@ -207,7 +207,7 @@ open class FSPagerViewTransformer: NSObject {
                 attributes.alpha = 0
             case -1 ..< 1:
                 attributes.alpha = 1
-                attributes.zIndex = Int((1-position) * CGFloat(10))
+                attributes.zIndex = Int((1-position) * 10)
                 let direction: CGFloat = position < 0 ? 1 : -1
                 let theta = position * .pi * 0.5 * (scrollDirection == .horizontal ? 1 : -1)
                 let radius = scrollDirection == .horizontal ? attributes.bounds.width : attributes.bounds.height
