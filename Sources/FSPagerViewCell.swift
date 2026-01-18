@@ -39,6 +39,8 @@ open class FSPagerViewCell: UICollectionViewCell {
             return _imageView
         }
         let imageView = UIImageView(frame: .zero)
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
         self.contentView.addSubview(imageView)
         _imageView = imageView
         return imageView
